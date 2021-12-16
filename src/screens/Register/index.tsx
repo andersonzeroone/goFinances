@@ -1,19 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Keyboard,
   Modal,
   TouchableWithoutFeedback,
-  Alert
+  Alert,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { useNavigation } from '@react-navigation/native';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import uuid from 'react-native-uuid';
 
 import { Button } from '../../components/Form/Button';
 import { CategorySelectButton } from '../../components/Form/CategorySelectButton';
 import { InputForm } from '../../components/Form/InputForm';
-import { Input } from '../../components/Form/Input';
 import { TransactionsTypeButton } from '../../components/Form/TransactionTypeButton';
 
 import { CategorySelect } from '../CategorySelect';
@@ -47,9 +49,14 @@ const schema = yup.object().shape({
 
 export function Register() {
 
+  const navigation = useNavigation();
+
+  const datakey = '@gofinances:transactions';
+
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm({
     resolver: yupResolver(schema)
@@ -76,7 +83,7 @@ export function Register() {
     setCategoryModalOpen(false);
   }
 
-  function handleSubmitForm(form: FormData) {
+  async function handleSubmitForm(form: FormData) {
 
     if (!transactionsType) {
       return Alert.alert("Selecione o tipo de transação")
@@ -86,14 +93,48 @@ export function Register() {
       return Alert.alert("Selecione a gategoria")
     }
 
-    const data = {
+    const newTranslation = {
+      id: String(uuid.v4()),
       name: form.name,
       amount: form.amount,
       transactionsType,
-      category: category.key
+      category: category.key,
+      date: new Date()
     }
-    console.log("🚀 ~ file: index.tsx ~ line 62 ~ handleSubmitForm ~ data", data)
+
+    try {
+      const data = await AsyncStorage.getItem(datakey);
+      const currentData = data ? JSON.parse(data) : [];
+
+      const dataFormated = [
+        ...currentData,
+        newTranslation
+      ]
+      await AsyncStorage.setItem(datakey, JSON.stringify(dataFormated));
+
+      reset()
+      setTransactionsType('')
+      setCategory({
+        key: 'category',
+        name: 'Categoria',
+      })
+
+      navigation.navigate('Listagem');
+
+    } catch (erro) {
+      console.log(erro)
+      Alert.alert('Não foi possivel salvar.')
+    }
   }
+
+  useEffect(() => {
+    async function getItemsAsyncStorage() {
+      const data = await AsyncStorage.getItem(datakey);
+      console.log("🚀 ~ file: index.tsx ~ line 109 ~ getItemsAsyncStorage ~ data", JSON.parse(data!))
+      // await AsyncStorage.removeItem(datakey);
+    }
+    getItemsAsyncStorage();
+  }, []);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

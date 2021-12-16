@@ -99,6 +99,8 @@ As seguintes ferramentas foram usadas na construção do projeto:
 - **[React Navigation/Tabs](https://reactnavigation.org/docs/tab-based-navigation)**
 - **[React native vector icons](https://github.com/oblador/react-native-vector-icons)**
 - **[Expo App Loading](https://docs.expo.dev/versions/latest/sdk/app-loading/)**
+- **[AsyncStorage](https://docs.expo.dev/versions/latest/sdk/async-storage/)**
+- **[Uuuid](https://www.npmjs.com/package/react-native-uuid)**
 
 > Veja o arquivo [package.json](https://github.com/andersonzeroone/goFinances/blob/main/package.json)
 
