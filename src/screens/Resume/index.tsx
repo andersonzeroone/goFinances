@@ -61,9 +61,6 @@ export function Resumo() {
     setIsLoading(true);
     const response = await AsyncStorage.getItem(datakey);
     const responseFormatted = response ? JSON.parse(response) : [];
-    // console.log("🚀 ~ file: index.tsx ~ line 18 ~ loadData ~ responseFormatted", responseFormatted)
-
-
 
     const totalByCategory: CategoryData[] = [];
 
