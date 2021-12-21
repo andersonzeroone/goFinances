@@ -101,9 +101,7 @@ export function DashBord() {
             style: 'currency',
             currency: 'BRL'
           }),
-        lastTransaction: transactions === [] ?
-          `Última entrada dia ${lastTransactionEntries}` :
-          'Sem entradas'
+        lastTransaction: `Última entrada dia ${lastTransactionEntries}`
       },
       expensive: {
         amount: expensiveTotal
@@ -111,9 +109,7 @@ export function DashBord() {
             style: 'currency',
             currency: 'BRL'
           }),
-        lastTransaction: transactions === [] ?
-          `Última saida dia ${lastTransactionExpensive}` :
-          'Sem saidas'
+        lastTransaction: `Última saida dia ${lastTransactionExpensive}`
       },
       total: {
         amount: total
@@ -121,7 +117,7 @@ export function DashBord() {
             style: 'currency',
             currency: 'BRL'
           }),
-        lastTransaction: transactions === [] ? totalInterval : 'Sem movitação'
+        lastTransaction: totalInterval
       },
     })
 

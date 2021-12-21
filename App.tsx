@@ -15,7 +15,7 @@ import {
 import { NavigationContainer } from '@react-navigation/native';
 import theme from './src/global/styles/theme';
 
-import { DashBord } from './src/screens/DasBord';
+import { DashBord } from './src/screens/DashBord';
 import { AppRoute } from './src/routes/app.routes';
 
 
