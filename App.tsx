@@ -19,6 +19,7 @@ import { DashBord } from './src/screens/DashBord';
 import { AppRoute } from './src/routes/app.routes';
 import { StatusBar } from 'react-native';
 import { SignIn } from './src/screens/SignIn';
+import { AuthProvider } from './src/hooks/auth';
 
 
 export default function App() {
@@ -37,7 +38,10 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <NavigationContainer>
         <StatusBar barStyle='light-content' backgroundColor='#5636D3' />
-        <SignIn />
+        <AuthProvider>
+          <SignIn />
+        </AuthProvider>
+
       </NavigationContainer>
     </ThemeProvider>
   );

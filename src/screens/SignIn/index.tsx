@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 import AppleSvg from '../../assets/apple.svg';
 import GoolgeSvg from '../../assets/google.svg';
 import LogoSvg from '../../assets/logo.svg';
 import { SignInSocialButton } from '../../components/SignInSocialButton';
+
+import { useAuth } from '../../hooks/auth';
 
 import {
   Container,
@@ -18,6 +20,9 @@ import {
 
 
 export function SignIn() {
+
+  const { user } = useAuth();
+  console.log("🚀 ~ file: index.tsx ~ line 25 ~ SignIn ~ user", user)
   return (
     <Container>
       <Header>
