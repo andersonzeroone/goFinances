@@ -10,7 +10,7 @@ export const Header = styled.View`
   background-color: ${({ theme }) => theme.colors.primary};
 
   width: 100%;
-  height: ${RFValue(112)}px;
+  height: ${RFValue(52)}px;
 
   align-items: center;
   justify-content: flex-end;

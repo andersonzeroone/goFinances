@@ -11,7 +11,7 @@ export const Header = styled.View`
   background-color: ${({ theme }) => theme.colors.primary};
 
   width: 100%;
-  height: ${RFValue(112)}px;
+  height: ${RFValue(52)}px;
 
   align-items: center;
   justify-content: flex-end;
@@ -60,4 +60,10 @@ export const Previous = styled.View``;
 export const Month = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: ${RFValue(20)}px;
+`;
+
+export const LoadContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
 `;

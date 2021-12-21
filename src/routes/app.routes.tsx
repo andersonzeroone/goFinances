@@ -7,7 +7,7 @@ import { DashBord } from '../screens/DashBord';
 import { Register } from '../screens/Register';
 import { useTheme } from 'styled-components';
 import theme from '../global/styles/theme';
-import { Resumo } from '../Resume';
+import { Resumo } from '../screens/Resume';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
