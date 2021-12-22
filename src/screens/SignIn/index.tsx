@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { Alert } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 import AppleSvg from '../../assets/apple.svg';
@@ -21,8 +22,31 @@ import {
 
 export function SignIn() {
 
-  const { user } = useAuth();
-  console.log("🚀 ~ file: index.tsx ~ line 25 ~ SignIn ~ user", user)
+  const { user, signWinthGoogle, signWinthApple } = useAuth();
+
+  async function handleSignWinthGoogle() {
+    try {
+
+      await signWinthGoogle()
+
+    } catch (error) {
+      console.log("🚀 ~ file: index.tsx ~ line 30 ~ handleSignWinthGoogle ~ error", error)
+      Alert.alert('tente novamente')
+
+    }
+  }
+
+  async function handleSignWinthApple() {
+    try {
+
+      await signWinthApple()
+
+    } catch (error) {
+      console.log("🚀 ~ file: index.tsx ~ line 30 ~ handleSignWinthGoogle ~ error", error)
+      Alert.alert('tente novamente')
+
+    }
+  }
   return (
     <Container>
       <Header>
@@ -47,11 +71,13 @@ export function SignIn() {
       <Footer>
         <FooterWrapper>
           <SignInSocialButton
+            onPress={handleSignWinthGoogle}
             title='Entrar com o Google'
             svg={GoolgeSvg}
           />
 
           <SignInSocialButton
+            onPress={handleSignWinthApple}
             title='Entrar com o Apple'
             svg={AppleSvg}
           />
