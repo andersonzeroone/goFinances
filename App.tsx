@@ -12,7 +12,8 @@ import {
 } from '@expo-google-fonts/poppins';
 
 
-import { NavigationContainer } from '@react-navigation/native';
+import { Routes } from './src/routes';
+
 import theme from './src/global/styles/theme';
 
 import { DashBord } from './src/screens/DashBord';
@@ -36,13 +37,10 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <NavigationContainer>
-        <StatusBar barStyle='light-content' backgroundColor='#5636D3' />
-        <AuthProvider>
-          <SignIn />
-        </AuthProvider>
-
-      </NavigationContainer>
+      <StatusBar barStyle='light-content' backgroundColor='#5636D3' />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </ThemeProvider>
   );
 }
