@@ -5,6 +5,7 @@ import { useFocusEffect } from '@react-navigation/native'
 import { ActivityIndicator } from 'react-native';
 import { HighLightCard } from '../../components/HighLighCard';
 import { TransactionCard, TransactionCardProps } from '../../components/TransactionCard';
+import { useAuth } from '../../hooks/auth';
 
 import {
   Container,
@@ -43,6 +44,8 @@ interface HighLightData {
 export function DashBord() {
 
   const theme = useTheme();
+
+  const { signOut, user } = useAuth();
 
   const [isLoading, setIsLoading] = useState(true);
   const [transactions, setTransactions] = useState<DataListProps[]>([]);
@@ -158,6 +161,11 @@ export function DashBord() {
     const datakey = '@gofinances:transactions';
     AsyncStorage.removeItem(datakey);
   }
+
+  function handleSignOut() {
+    signOut();
+  }
+
   return (
     <Container>
 
@@ -174,13 +182,18 @@ export function DashBord() {
             <Header>
               <UserContainer>
                 <UserInfo>
-                  <Photo source={{ uri: 'https://avatars.githubusercontent.com/u/33969430?v=4' }} />
+                  {user.photo ?
+                    <Photo source={{ uri: user.photo }} />
+                    :
+                    <Photo source={{ uri: `https://ui-avatars.com/api/?name=${user.name}&length=1` }} />
+                  }
+
                   <User>
                     <UserGreeting>Olé,</UserGreeting>
-                    <UserName>Anderson</UserName>
+                    <UserName>{user.name}</UserName>
                   </User>
                 </UserInfo>
-                <LogoutButton onPress={cleanTransaction}>
+                <LogoutButton onPress={handleSignOut}>
                   <Icon name='power' />
                 </LogoutButton>
 

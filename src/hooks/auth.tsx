@@ -29,6 +29,8 @@ interface AuthContexData {
   user: User;
   signWinthGoogle(): Promise<void>;
   signWinthApple(): Promise<void>;
+  signOut(): Promise<void>;
+  isUserStorageLoading: boolean;
 }
 
 
@@ -82,7 +84,6 @@ function AuthProvider({ children }: AuthProviderProps) {
 
   async function signWinthApple() {
     try {
-
       const credential = await AppleAuthentication.signOutAsync({
         requestedScopes: [
           AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
@@ -112,6 +113,12 @@ function AuthProvider({ children }: AuthProviderProps) {
     }
   }
 
+  async function signOut() {
+    setUser({} as User)
+
+    await AsyncStorage.removeItem(userStorageKey);
+  }
+
 
   useEffect(() => {
     async function loadUserStorageData() {
@@ -130,7 +137,13 @@ function AuthProvider({ children }: AuthProviderProps) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, signWinthGoogle, signWinthApple }}>
+    <AuthContext.Provider value={{
+      user,
+      signWinthGoogle,
+      signWinthApple,
+      signOut,
+      isUserStorageLoading
+    }}>
       {children}
     </AuthContext.Provider>
   )
